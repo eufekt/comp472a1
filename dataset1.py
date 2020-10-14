@@ -34,6 +34,42 @@ test_with_label_2 = 'dataset/test_with_label_2.csv'
 ## naive bayes GaussianNB ## 
 ############################
 
+def naive_bayes_GaussianNB(train_csv, val_csv, test_with_label_csv, letter):
+    # split the matrices
+    train_Y = train_csv[:, -1] 
+    train_X = train_csv[:, :-1 ]
+
+
+    # fit the data
+    GNB = sklearn.naive_bayes.GaussianNB().fit(train_X, train_Y) # training the naive bayes GaussianNB
+
+
+    # split the array
+    val_X = val_csv[:, :-1] # gets everything except last column
+    val_y = val_csv[:, -1] # gets only last column
+
+    # value prediction, I think this is useless
+    val_y_predict = GNB.predict(val_X)
+
+
+    test_with_label_X = test_with_label_csv[:, :-1 ]
+    test_with_label_Y = test_with_label_csv[:, -1]
+
+    # prediction 
+    test_with_label_Y_predict = GNB.predict(test_with_label_X)
+
+    # confusion matrix
+    confusion_matrix = sklearn.metrics.confusion_matrix(test_with_label_Y, test_with_label_Y_predict) # confusion matrix
+
+    # all the other stuff required
+    report = sklearn.metrics.classification_report(test_with_label_Y, test_with_label_Y_predict, target_names=letter) 
+
+    # classification array?
+    index = np.arange(1, test_with_label_Y_predict.size + 1, 1) 
+    array_to_write_to_file = np.stack((index, test_with_label_Y_predict), axis=1)
+
+    return  array_to_write_to_file, report, confusion_matrix
+
 #############
 # Dataset 1 #
 #############
@@ -45,41 +81,18 @@ letter_1 = np.loadtxt(info_1, delimiter=',',  skiprows=1, usecols=1, dtype=np.st
 test_with_label_1_csv = np.loadtxt(test_with_label_1, delimiter=',',  skiprows=0, dtype='int32')
 
 
-# split the matrices
-train_1_Y = train_1_csv[:, -1] 
-train_1_X = train_1_csv[:, :-1 ]
 
+array_to_write_to_file_1, report_1_test, confusion_matrix_1_test = naive_bayes_GaussianNB(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1)
 
-# fit the data
-GNB = sklearn.naive_bayes.GaussianNB().fit(train_1_X, train_1_Y) # naive bayes GaussianNB
-
-
-# split the array
-val_1_X = val_1_csv[:, :-1] # gets everything except last column
-val_1_y = val_1_csv[:, -1] # gets only last column
-
-
-val_1_y_predict = GNB.predict(val_1_X) # train the model
-
-
-test_with_label_1_X = test_with_label_1_csv[:, :-1 ]
-test_with_label_1_Y = test_with_label_1_csv[:, -1]
-
-test_with_label_1_Y_predict = GNB.predict(test_with_label_1_X)
-
-confusion_matrix_1_test = sklearn.metrics.confusion_matrix(val_1_y, val_1_y_predict) # confusion matrix
-report_1_test = sklearn.metrics.classification_report(test_with_label_1_Y, test_with_label_1_Y_predict, target_names=letter_1) # all the other stuff required
-
-index = np.arange(1, test_with_label_1_Y_predict.size + 1, 1) 
-array_to_write_to_file = np.stack((index, test_with_label_1_Y_predict), axis=1)
-
+print ("#############\n# dataset 1 #\n#############\n")
 print("\nall\n")
-print(array_to_write_to_file)
+print(array_to_write_to_file_1)
 print("\n")
-print("matrix\n")
+print("matrix dataset 1\n")
 print(confusion_matrix_1_test)
 print("\nreport\n")
 print(report_1_test)
+
 
 
 
@@ -87,3 +100,22 @@ print(report_1_test)
 # Dataset 2 #
 #############
 
+
+
+#laods the csv files into a numpy array
+train_2_csv = np.loadtxt(train_2, delimiter=',',  skiprows=0,) 
+val_2_csv = np.loadtxt(value_2, delimiter=',',  skiprows=0)
+letter_2 = np.loadtxt(info_2, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
+test_with_label_2_csv = np.loadtxt(test_with_label_2, delimiter=',',  skiprows=0, dtype='int32')
+
+
+array_to_write_to_file_2, report_2_test, confusion_matrix_2_test = naive_bayes_GaussianNB(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2)
+
+print ("#############\n# dataset 2 #\n#############\n")
+print("\nall\n")
+print(array_to_write_to_file_2)
+print("\n")
+print("matrix data set 2\n")
+print(confusion_matrix_2_test)
+print("\nreport\n")
+print(report_2_test)
