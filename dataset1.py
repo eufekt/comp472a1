@@ -94,6 +94,12 @@ print("\nreport\n")
 print(report_1_test)
 
 
+f = open("outputs/GNB-DS1", "w")
+
+for item in array_to_write_to_file_1:
+    f.write(str(item[0]).split('.')[0]+","+str(item[1]).split('.')[0]+"\n")
+f.close()
+
 
 
 #############
@@ -119,3 +125,10 @@ print("matrix data set 2\n")
 print(confusion_matrix_2_test)
 print("\nreport\n")
 print(report_2_test)
+
+
+f = open("outputs/GNB-DS2", "w")
+
+for item in array_to_write_to_file_2:
+    f.write(str(item[0]).split('.')[0]+","+str(item[1]).split('.')[0]+"\n")
+f.close()
