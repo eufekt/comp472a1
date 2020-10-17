@@ -1,13 +1,8 @@
-import matplotlib.pyplot as plt
 import numpy as np
-import sklearn
-import sklearn.naive_bayes
 import sklearn.tree
-import sklearn.preprocessing   # For scale function
 import sklearn.metrics         # for accuracy_score
-import sys
 
-def base_DT(train_csv, val_csv, test_with_label_csv, letter):
+def base_DT(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     #split the matrices
     train_Y = train_csv[:, -1] 
     train_X = train_csv[:, :-1]
@@ -31,6 +26,14 @@ def base_DT(train_csv, val_csv, test_with_label_csv, letter):
     index = np.arange(1, test_with_label_Y_predict.size + 1, 1) 
     array_to_write_to_file = np.stack((index, test_with_label_Y_predict), axis=1)
 
+    if(prints):
+        print('#####################')
+        print('### base dt ###')
+        print('#####################')
+        print(array_to_write_to_file)
+        print(confusion_matrix)
+        print(report)
+    
     return  {
         'arr': array_to_write_to_file,
         'report': report,
