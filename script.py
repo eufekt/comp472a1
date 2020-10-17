@@ -14,6 +14,8 @@ import sys
 from base_dt import base_DT
 from perceptron import per
 from best_mlp import best_mlp
+from best_dt import best_DT
+
 from gnb import naive_bayes_GaussianNB
 from utils import writeToFile
 
@@ -44,8 +46,8 @@ letter_1 = np.loadtxt(info_1, delimiter=',',  skiprows=1, usecols=1, dtype=np.st
 test_with_label_1_csv = np.loadtxt(test_with_label_1, delimiter=',',  skiprows=0, dtype='int32')
 
 writeToFile('GNB_DS1', naive_bayes_GaussianNB(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
-#  add best_dt
-writeToFile('Base_DT_DS1', base_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
+writeToFile('Best_DT_DS1', best_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1)) # BEST
+writeToFile('Base_DT_DS1', base_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1)) # BASE
 writeToFile('PER_DS1', per(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
 # add base_mlp
 writeToFile('BEST_MPL_DS1',best_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
