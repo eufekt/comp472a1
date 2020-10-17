@@ -5,7 +5,7 @@ import sklearn.metrics         # for accuracy_score
 import sys
 
 
-def best_DT(train_csv, val_csv, test_with_label_csv, letter):
+def best_DT(train_csv, val_csv, test_with_label_csv, letter, prints=False):
 
     param_values = {
         'criterion':['gini', 'entropy'], 
@@ -17,7 +17,7 @@ def best_DT(train_csv, val_csv, test_with_label_csv, letter):
 
     # setup the model
     # base_dt = GridSearchCV(sklearn.tree.DecisionTreeClassifier(), param_values)
-    best_dt = sklearn.tree.DecisionTreeClassifier(criterion='gini', max_depth=None, min_samples_split=2, min_weight_fraction_leaf=0.0, min_impurity_decrease=0.0, class_weight=None)
+    best_dt = sklearn.tree.DecisionTreeClassifier()
 
     CV_base_dt = GridSearchCV(estimator=best_dt, param_grid=param_values, cv = 3)
 
@@ -30,12 +30,7 @@ def best_DT(train_csv, val_csv, test_with_label_csv, letter):
     # train the model
     CV_base_dt.fit(train_X, train_Y)
 
-    print("params\n")
-    print(CV_base_dt.best_params_)
 
-    print("\nbest score\n")
-    print(CV_base_dt.best_score_)
-    print()
 
     # set up the testing data
     test_with_label_X = test_with_label_csv[:, :-1 ]
@@ -53,12 +48,18 @@ def best_DT(train_csv, val_csv, test_with_label_csv, letter):
     index = np.arange(1, test_with_label_Y_predict.size + 1, 1) 
     array_to_write_to_file = np.stack((index, test_with_label_Y_predict), axis=1)
 
-    print("Array\n")
-    print(array_to_write_to_file)
-    print("\nconfusion matrix\n")
-    print(confusion_matrix)
-    print("\nreport\n")
-    print(report)
+    if(prints):
+        print('#####################')
+        print('### best dt ###')
+        print('#####################')
+        print("params\n")
+        print(CV_base_dt.best_params_)
+        print("\nbest score\n")
+        print(CV_base_dt.best_score_)
+        print()
+        print(array_to_write_to_file)
+        print(confusion_matrix)
+        print(report)
 
     return  {
         'arr': array_to_write_to_file,
