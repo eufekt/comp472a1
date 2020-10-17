@@ -19,7 +19,7 @@ def best_DT(train_csv, val_csv, test_with_label_csv, letter):
     # base_dt = GridSearchCV(sklearn.tree.DecisionTreeClassifier(), param_values)
     best_dt = sklearn.tree.DecisionTreeClassifier(criterion='gini', max_depth=None, min_samples_split=2, min_weight_fraction_leaf=0.0, min_impurity_decrease=0.0, class_weight=None)
 
-    CV_base_dt = GridSearchCV(estimator=best_dt, param_grid=param_values, cv = 5)
+    CV_base_dt = GridSearchCV(estimator=best_dt, param_grid=param_values, cv = 3)
 
     # print(CV_base_dt.best_score_)
 
