@@ -1,35 +1,36 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sklearn
-import sklearn.naive_bayes
-import sklearn.tree
+import sklearn.neural_network
 import sklearn.preprocessing   # For scale function
 import sklearn.metrics         # for accuracy_score
+from sklearn.model_selection import GridSearchCV
 import sys
 
-def naive_bayes_GaussianNB(train_csv, val_csv, test_with_label_csv, letter):
+def best_mlp(train_csv, val_csv, test_with_label_csv, letter):
     # split the matrices
     train_Y = train_csv[:, -1] 
     train_X = train_csv[:, :-1]
 
-
     # fit the data
-    GNB = sklearn.naive_bayes.GaussianNB().fit(train_X, train_Y) # training the naive bayes GaussianNB
+    # mlp = sklearn.neural_network.MLPClassifier().fit(train_X, train_Y)
+    mlp = sklearn.neural_network.MLPClassifier()
 
+    parameter_space = {
+    'hidden_layer_sizes': [(30,50), (10,10,10)],
+    'activation': ['logistic','tanh', 'relu', 'identity'],
+    'solver': ['sgd', 'adam'],
+    }
 
-    # split the array
-    val_X = val_csv[:, :-1] # gets everything except last column
-    val_y = val_csv[:, -1] # gets only last column
-
-    # value prediction, I think this is useless
-    val_y_predict = GNB.predict(val_X)
-
-
+    clf = GridSearchCV(mlp, parameter_space, n_jobs=-1, cv=3)
+    clf.fit(train_X, train_Y)
+    print('Best parameters found:\n', clf.best_params_)
+    
     test_with_label_X = test_with_label_csv[:, :-1 ]
     test_with_label_Y = test_with_label_csv[:, -1]
 
     # prediction 
-    test_with_label_Y_predict = GNB.predict(test_with_label_X)
+    test_with_label_Y_predict = clf.predict(test_with_label_X)
 
     # confusion matrix
     confusion_matrix = sklearn.metrics.confusion_matrix(test_with_label_Y, test_with_label_Y_predict) # confusion matrix
@@ -41,8 +42,13 @@ def naive_bayes_GaussianNB(train_csv, val_csv, test_with_label_csv, letter):
     index = np.arange(1, test_with_label_Y_predict.size + 1, 1) 
     array_to_write_to_file = np.stack((index, test_with_label_Y_predict), axis=1)
 
-    return {
+    print(report)
+    print(confusion_matrix)
+
+    return  {
         'arr': array_to_write_to_file,
         'report': report,
         'confusionMatrix':confusion_matrix
-        }
+    }   
+
+

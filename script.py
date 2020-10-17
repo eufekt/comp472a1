@@ -7,13 +7,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sklearn
-import sklearn.naive_bayes
-import sklearn.tree
 import sklearn.preprocessing   # For scale function
 import sklearn.metrics         # for accuracy_score
 import sys
-import gnb
-import base_dt
+
+from base_dt import base_DT
+from perceptron import per
+from best_mlp import best_mlp
+from gnb import naive_bayes_GaussianNB
+from utils import writeToFile
 
 # prints entire entire instead of truncated
 np.set_printoptions(threshold=sys.maxsize)
@@ -41,11 +43,12 @@ val_1_csv = np.loadtxt(value_1, delimiter=',',  skiprows=0)
 letter_1 = np.loadtxt(info_1, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
 test_with_label_1_csv = np.loadtxt(test_with_label_1, delimiter=',',  skiprows=0, dtype='int32')
 
-array_GNB_1, report_GNB_1_test, confusion_matrix_GNB_1_test = gnb.naive_bayes_GaussianNB(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1)
-
-array_BASE_DT_1, report_BASE_DT_1_test, confusion_matrix_BASE_DT_1_test = base_dt.base_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1)
-
-
+writeToFile('GNB_DS1', naive_bayes_GaussianNB(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
+#  add best_dt
+writeToFile('Base_DT_DS1', base_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
+writeToFile('PER_DS1', per(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
+# add base_mlp
+writeToFile('BEST_MPL_DS1',best_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
 
 #############
 # Dataset 2 #
@@ -57,15 +60,4 @@ val_2_csv = np.loadtxt(value_2, delimiter=',',  skiprows=0)
 letter_2 = np.loadtxt(info_2, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
 test_with_label_2_csv = np.loadtxt(test_with_label_2, delimiter=',',  skiprows=0, dtype='int32')
 
-array_to_write_to_file_GNB_2, report_GNB_2_test, confusion_matrix_GNB_2_test = gnb.naive_bayes_GaussianNB(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2)
-
-array_BASE_DT_2, report_BASE_DT_2_test, confusion_matrix_BASE_DT_2_test = base_dt.base_DT(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2)
-
-
-
-# utils
-# print array to File
-# f = open("outputs/GNB-DS1", "w")
-# for item in array_GNB_1:
-#     f.write(str(item[0]).split('.')[0]+","+str(item[1]).split('.')[0]+"\n")
-# f.close()
+# add all dataset 2 like with dataset 1
