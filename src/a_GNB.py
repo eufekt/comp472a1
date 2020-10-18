@@ -7,18 +7,8 @@ def GNB(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     train_Y = train_csv[:, -1] 
     train_X = train_csv[:, :-1]
 
-
     # fit the data
     GNB = sklearn.naive_bayes.GaussianNB().fit(train_X, train_Y) # training the naive bayes GaussianNB
-
-
-    # split the array
-    # val_X = val_csv[:, :-1] # gets everything except last column
-    # val_y = val_csv[:, -1] # gets only last column
-
-    # value prediction, I think this is useless
-    # val_y_predict = GNB.predict(val_X)
-
 
     test_with_label_X = test_with_label_csv[:, :-1 ]
     test_with_label_Y = test_with_label_csv[:, -1]

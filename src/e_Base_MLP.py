@@ -11,12 +11,9 @@ def base_mlp(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     train_X = train_csv[:, :-1]
 
     # fit the data
-    # mlp = sklearn.neural_network.MLPClassifier().fit(train_X, train_Y)
     base_mlp = sklearn.neural_network.MLPClassifier(hidden_layer_sizes=100, activation='logistic', solver='sgd')
 
-
     base_mlp.fit(train_X, train_Y)
-
 
     test_with_label_X = test_with_label_csv[:, :-1 ]
     test_with_label_Y = test_with_label_csv[:, -1]

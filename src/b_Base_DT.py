@@ -7,7 +7,6 @@ def base_DT(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     train_Y = train_csv[:, -1] 
     train_X = train_csv[:, :-1]
 
-
     #fit the data
     baseDT = sklearn.tree.DecisionTreeClassifier(criterion="entropy").fit(train_X, train_Y)
 

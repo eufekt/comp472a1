@@ -9,7 +9,6 @@ def best_mlp(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     train_X = train_csv[:, :-1]
 
     # fit the data
-    # mlp = sklearn.neural_network.MLPClassifier().fit(train_X, train_Y)
     mlp = sklearn.neural_network.MLPClassifier()
 
     parameter_space = {
@@ -21,7 +20,6 @@ def best_mlp(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     clf = GridSearchCV(mlp, parameter_space, n_jobs=-1, cv=3)
     clf.fit(train_X, train_Y)
 
-    
     test_with_label_X = test_with_label_csv[:, :-1 ]
     test_with_label_Y = test_with_label_csv[:, -1]
 

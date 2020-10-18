@@ -7,6 +7,8 @@ from c_Best_DT import best_DT
 from d_PER import per
 from e_Base_MLP import base_mlp
 from f_Best_MLP import best_mlp
+import pandas as pd;
+import matplotlib.pyplot as plt
 
 from utils import writeToFile
 
@@ -26,6 +28,7 @@ test_no_label_2 = '../dataset/test_no_label_2.csv'
 test_with_label_2 = '../dataset/test_with_label_2.csv'
 
 
+
 #############e
 # Dataset 1 #
 #############
@@ -36,31 +39,38 @@ val_1_csv = np.loadtxt(value_1, delimiter=',',  skiprows=0)
 letter_1 = np.loadtxt(info_1, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
 test_with_label_1_csv = np.loadtxt(test_with_label_1, delimiter=',',  skiprows=0, dtype='int32')
 
-# writeToFile('GNB_DS1', GNB(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1),)
-# writeToFile('Base_DT_DS1', base_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1)) # BASE
-# writeToFile('Best_DT_DS1', best_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
-# writeToFile('PER_DS1', per(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
-# writeToFile('BASE_MPL_DS1',base_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1)) # BASE
-# writeToFile('BEST_MPL_DS1',best_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1))
+# Distribution dataset 1
+data_1 = pd.read_csv(train_1, usecols=[1024])
+plt.figure('DataSet 1')
+data_1['1.828'].value_counts().plot.bar()
+
+writeToFile('GNB_DS1', GNB(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
+writeToFile('BASE_DT_DS1', base_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
+writeToFile('BEST_DT_DS1', best_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
+writeToFile('PER_DS1', per(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
+writeToFile('BASE_MLP_DS1', base_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
+writeToFile('BEST_MLP_DS1', best_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
 
 
 #############
 # Dataset 2 #
 #############
 
-#laods the csv files into a numpy array
+#loads the csv files into a numpy array
 train_2_csv = np.loadtxt(train_2, delimiter=',',  skiprows=0,) 
 val_2_csv = np.loadtxt(value_2, delimiter=',',  skiprows=0)
 letter_2 = np.loadtxt(info_2, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
 test_with_label_2_csv = np.loadtxt(test_with_label_2, delimiter=',',  skiprows=0, dtype='int32')
 
-# add all dataset 2 like with dataset 1
+# Distribution dataset 2
+data_2 = pd.read_csv(train_2, usecols=[1024])
+plt.figure('DataSet 2')
+data_2['9'].value_counts().plot.bar()
+plt.show()
 
-
-# For testing
-GNB(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=True)
-base_DT(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=True)
-best_DT(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=True)
-per(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=True)
-base_mlp(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=True)
-best_mlp(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=True)
+writeToFile('GNB_DS2', GNB(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BASE_DT_DS2',base_DT(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BEST_DT_DS2', best_DT(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('PER_DS2', per(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BASE_MLP_DS2', base_mlp(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BEST_MLP_DS2', best_mlp(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))

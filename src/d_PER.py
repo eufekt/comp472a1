@@ -11,14 +11,6 @@ def per(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     # fit the data
     perceptron = sklearn.linear_model.Perceptron().fit(train_X, train_Y) # training the Perceptron
 
-    # split the array
-    # val_X = val_csv[:, :-1] # gets everything except last column
-    # val_y = val_csv[:, -1] # gets only last column
-
-    # value prediction, I think this is useless
-    # val_y_predict = perceptron.predict(val_X)
-
-
     test_with_label_X = test_with_label_csv[:, :-1 ]
     test_with_label_Y = test_with_label_csv[:, -1]
 

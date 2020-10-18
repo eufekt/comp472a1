@@ -4,7 +4,6 @@ import numpy as np
 import sklearn.metrics         # for accuracy_score
 import sys
 
-
 def best_DT(train_csv, val_csv, test_with_label_csv, letter, prints=False):
 
     param_values = {
@@ -29,8 +28,6 @@ def best_DT(train_csv, val_csv, test_with_label_csv, letter, prints=False):
 
     # train the model
     CV_base_dt.fit(train_X, train_Y)
-
-
 
     # set up the testing data
     test_with_label_X = test_with_label_csv[:, :-1 ]
