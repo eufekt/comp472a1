@@ -51,7 +51,6 @@ writeToFile('PER_DS1', per(train_1_csv, val_1_csv, test_with_label_1_csv, letter
 writeToFile('BASE_MLP_DS1', base_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
 writeToFile('BEST_MLP_DS1', best_mlp(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
 
-
 #############
 # Dataset 2 #
 #############
@@ -62,15 +61,21 @@ val_2_csv = np.loadtxt(value_2, delimiter=',',  skiprows=0)
 letter_2 = np.loadtxt(info_2, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
 test_with_label_2_csv = np.loadtxt(test_with_label_2, delimiter=',',  skiprows=0, dtype='int32')
 
+writeToFile('GNB_DS2', GNB(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BASE_DT_DS2',base_DT(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BEST_DT_DS2', best_DT(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('PER_DS2', per(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BASE_MLP_DS2', base_mlp(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2, prints=False))
+writeToFile('BEST_MLP_DS2', best_mlp(train_2_csv, val_2_csv, test_with_label_2_csv, letter_2, prints=False))
+
+
+# Distribution dataset 1
+data_1 = pd.read_csv(train_1, usecols=[1024])
+plt.figure('DataSet 1')
+data_1['1.828'].value_counts().plot.bar()
+
 # Distribution dataset 2
 data_2 = pd.read_csv(train_2, usecols=[1024])
 plt.figure('DataSet 2')
 data_2['9'].value_counts().plot.bar()
 plt.show()
-
-writeToFile('GNB_DS2', GNB(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
-writeToFile('BASE_DT_DS2',base_DT(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
-writeToFile('BEST_DT_DS2', best_DT(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
-writeToFile('PER_DS2', per(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
-writeToFile('BASE_MLP_DS2', base_mlp(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
-writeToFile('BEST_MLP_DS2', best_mlp(train_2_csv, val_1_csv, test_with_label_2_csv, letter_2, prints=False))
