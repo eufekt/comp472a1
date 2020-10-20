@@ -27,22 +27,32 @@ info_2 = '../dataset/info_2.csv'
 test_no_label_2 = '../dataset/test_no_label_2.csv'
 test_with_label_2 = '../dataset/test_with_label_2.csv'
 
+#demoTesting
+# demo_train = '../dataset/train_2.csv'
+# demo_value = '../dataset/val_2.csv'
+# demo_info = '../dataset/info_2.csv'
+# demo_test_no_label = '../dataset/test_no_label_2.csv'
+# demo_test_with_label = '../dataset/test_with_label_2.csv'
+
+# demo_train_csv = np.loadtxt(demo_train, delimiter=',',  skiprows=0,) 
+# demo_val_csv = np.loadtxt(demo_value, delimiter=',',  skiprows=0)
+# demo_letter = np.loadtxt(demo_info, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
+# demo_test_with_label_csv = np.loadtxt(demo_test_with_label, delimiter=',',  skiprows=0, dtype='int32')
+
+# writeToFile('DEMO_GNB_DS1', GNB(demo_train_csv, demo_val_csv, demo_test_with_label_csv, demo_letter, prints=True))
 
 
 #############e
 # Dataset 1 #
 #############
 
-#laods the csv files into a numpy array
+#loads the csv files into a numpy array
 train_1_csv = np.loadtxt(train_1, delimiter=',',  skiprows=0,) 
 val_1_csv = np.loadtxt(value_1, delimiter=',',  skiprows=0)
 letter_1 = np.loadtxt(info_1, delimiter=',',  skiprows=1, usecols=1, dtype=np.str)
 test_with_label_1_csv = np.loadtxt(test_with_label_1, delimiter=',',  skiprows=0, dtype='int32')
 
 # Distribution dataset 1
-data_1 = pd.read_csv(train_1, usecols=[1024])
-plt.figure('DataSet 1')
-data_1['1.828'].value_counts().plot.bar()
 
 writeToFile('GNB_DS1', GNB(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))
 writeToFile('BASE_DT_DS1', base_DT(train_1_csv, val_1_csv, test_with_label_1_csv, letter_1, prints=False))

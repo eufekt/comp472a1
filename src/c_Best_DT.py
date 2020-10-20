@@ -1,7 +1,7 @@
 from sklearn.model_selection import GridSearchCV
 import sklearn.tree
 import numpy as np
-import sklearn.metrics         # for accuracy_score
+import sklearn.metrics # for accuracy_score
 import sys
 
 def best_DT(train_csv, val_csv, test_with_label_csv, letter, prints=False):
@@ -15,12 +15,9 @@ def best_DT(train_csv, val_csv, test_with_label_csv, letter, prints=False):
     }
 
     # setup the model
-    # base_dt = GridSearchCV(sklearn.tree.DecisionTreeClassifier(), param_values)
     best_dt = sklearn.tree.DecisionTreeClassifier()
 
     CV_base_dt = GridSearchCV(estimator=best_dt, param_grid=param_values, cv = 3)
-
-    # print(CV_base_dt.best_score_)
 
     #setup the training set 
     train_Y = train_csv[:, -1] 
